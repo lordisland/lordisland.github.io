@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reset Code Redeem</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      background: crimson;
+      color: white;
+    }
+    button:hover {
+      background: darkred;
+    }
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+    }
+    .success {
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h2>🔄 Reset Data Redeem</h2>
+  <p>Jika tombol ini ditekan, semua data redeem akan dihapus (players & codes).</p>
+  <button onclick="resetRedeem()">Reset Data</button>
+
+  <div id="msg" class="message"></div>
+
+  <script>
+    function resetRedeem() {
+      localStorage.removeItem("players");
+      localStorage.removeItem("codes");
+      document.getElementById("msg").textContent = "✅ Data redeem berhasil direset!";
+      document.getElementById("msg").className = "message success";
+    }
+  </script>
+</body>
+</html>

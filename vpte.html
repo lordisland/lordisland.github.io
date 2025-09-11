@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Status Server MCPE</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #1e3c72, #2a5298);
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(8px);
+      border-radius: 16px;
+      padding: 30px 40px;
+      text-align: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      max-width: 400px;
+      width: 100%;
+      animation: fadeIn 1s ease-in-out;
+    }
+
+    .card h2 {
+      margin: 0;
+      font-size: 1.6em;
+      color: #ffdd57;
+    }
+
+    .status {
+      font-size: 2.5em;
+      margin: 20px 0;
+      font-weight: bold;
+    }
+
+    .online {
+      color: #4caf50;
+    }
+
+    .offline {
+      color: #f44336;
+    }
+
+    .footer {
+      margin-top: 15px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>🌍 Status Server Minecraft</h2>
+    <div id="status" class="status">Mengecek...</div>
+    <div id="motd"></div>
+    <div class="footer">⏳ Update setiap 30 detik</div>
+  </div>
+
+  <script>
+    async function fetchStatus() {
+      const key = "wUN8BoTTW3MeDm0bke4PZb4d648SbP5bShK"; // API Key kamu
+      const url = `https://minecraftpocket-servers.com/api/?object=servers&element=detail&key=${key}`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // Coba cek dulu struktur JSON yang keluar
+        console.log(data);
+
+        // Kalau JSON mengandung players_online dan maxplayers:
+        const online = data.players || data.players_online;
+        const max = data.maxplayers || data.max_players;
+        const motd = data.motd || data.name || "Server Minecraft";
+
+        if (online !== undefined && max !== undefined) {
+          document.getElementById("status").innerHTML =
+            `<span class="online">${online} / ${max}</span> Online`;
+        } else {
+          document.getElementById("status").innerHTML =
+            `<span class="offline">Server Offline</span>`;
+        }
+
+        document.getElementById("motd").textContent = motd;
+      } catch (e) {
+        document.getElementById("status").innerHTML =
+          `<span class="offline">❌ Gagal mengambil status</span>`;
+      }
+    }
+
+    fetchStatus();
+    setInterval(fetchStatus, 30000); // update setiap 30 detik
+  </script>
+</body>
+</html>

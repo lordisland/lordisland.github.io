@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lord Island</title>
+    <link rel="icon" type="image/png" href="media/favicon.png">
+    <link rel="stylesheet" href="media/style.css">
+    <link href="https://fonts.bunny.net/css?family=Space+Grotesk:wght@500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <nav class="desktop_navbar">
+      <a href="#"><img class="desktop_navbar_logo_img" src="media/logo_small.png" alt="logo"></a>
+      <a href="https://wiki.example.com/" class="desktop_navbar_link">Wiki</a>
+      <a href="#discord" class="desktop_navbar_link scroll">Community</a>
+      <a href="#about" class="desktop_navbar_link scroll">About Us</a>
+      <div class="desktop_navbar_link2_div">
+          <a href="#join" class="desktop_navbar_link2 scroll">Redemcode</a>
+      </div>
+    </nav>
+    <div class="mobile_navbar">
+      <a href="#" class="mobile_navbar_logo_img_a"><img class="mobile_navbar_logo_img" src="media/logo_small.png" alt="logo"></a>
+      <div id="mobile_navbar_links">
+          <a class="mobile_navbar_link" onclick="mobile_navbar_link_hider()" href="https://wiki.example.com/">Wiki</a>
+          <a class="mobile_navbar_link scroll" onclick="mobile_navbar_link_hider()" href="#discord">Community</a>
+          <a class="mobile_navbar_link scroll" onclick="mobile_navbar_link_hider()" href="#about">About Us</a>
+          <a class="mobile_navbar_link scroll" onclick="mobile_navbar_link_hider()" href="#join">Join Us</a>
+        </div>
+        <div class="icon" onclick="mobile_navbar_link_hider()">
+            <i class="fa fa-bars"></i>
+        </div>
+        <script>
+            function mobile_navbar_link_hider() {
+            var x = document.getElementById("mobile_navbar_links");
+            if (x.style.display === "flex") {
+                x.style.display = "none";
+            } else {
+                x.style.display = "flex";
+            }
+            } 
+        </script>
+    </div>
+<div class="mainflex" style="background-image: url('media/back.png')">
+      <div class="main1">
+        <a class="main1_logo_a" href="#">
+          <img class="main1_logo" src="media/logo.png" alt="logo">
+        </a>
+        <div class="main1_description">
+  <div class="card">
+    <div id="status" class="status">Mengecek...</div>
+    <div id="motd"></div>
+  </div>
+
+  <script>
+    async function fetchStatus() {
+      const key = "wUN8BoTTW3MeDm0bke4PZb4d648SbP5bShK"; // API Key kamu
+      const url = `https://minecraftpocket-servers.com/api/?object=servers&element=detail&key=${key}`;
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+
+        // Coba cek dulu struktur JSON yang keluar
+        console.log(data);
+
+        // Kalau JSON mengandung players_online dan maxplayers:
+        const online = data.players || data.players_online;
+        const max = data.maxplayers || data.max_players;
+        const motd = data.motd || data.name || "Server Minecraft";
+
+        if (online !== undefined && max !== undefined) {
+          document.getElementById("status").innerHTML =
+            `<span class="online">${online} / ${max}</span> Online`;
+        } else {
+          document.getElementById("status").innerHTML =
+            `<span class="offline">Server Offline</span>`;
+        }
+
+        document.getElementById("motd").textContent = motd;
+      } catch (e) {
+        document.getElementById("status").innerHTML =
+          `<span class="offline">❌ Gagal mengambil status</span>`;
+      }
+    }
+
+    fetchStatus();
+    setInterval(fetchStatus, 30000); // update setiap 30 detik
+  </script>
+        </div>
+        <div class="main1_ipcopier_div">
+          <a href="minecraft://?addExternalServer=LordIsland|lordisland.mysrv.top:25617">
+          <button class="main1_ipcopier" onclick="copyText()" type="button" >
+            <span class="main1_ipcopier_text1">lordisland.mysrv.top</span>
+            <br>
+            <span class="main1_ipcopier_text2">Click to Play</span>
+          </button>
+          </a>
+          <script>
+            function copyText() {
+                navigator.clipboard.writeText
+            ("lordisland.mysrv.top:25617");
+                }
+            $(document).ready(function() {
+            $('.main1_ipcopier').click(function() {
+                var popup = $('<div>', { class: 'main1_popup' })
+                .append($('<h3 class="copy_confirm">').text('Copied IP to clipboard'))
+                $(this).after(popup);
+                setTimeout(function() {
+                popup.remove();
+                }, 1000);
+            });
+            });
+        </script>
+        </div>
+        <a href="#more" class="scroll">
+          <img alt="downarrow" class="main1_downarrow" src="media/downarrow.png">
+        </a>
+        <script>
+          const scrollLinks = document.querySelectorAll('.scroll');
+          scrollLinks.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+              event.preventDefault();
+              const target = document.querySelector(link.getAttribute('href'));
+              const offsetTop = target.offsetTop;
+              window.scrollTo({
+                top: offsetTop,
+                behavior: 'smooth'
+              });
+            });
+          });
+        </script>
+      </div>
+
+      
+      <div id="more"></div> 
+      <div class="main2">
+        <a class="headline">Clan Populer</a>
+        <div class="main2_features_div">
+          <div class="main2_feature">
+            <img class="main2_feature_img" alt="Feature Image" src="media/1.jpg">
+            <a class="main2_feature_headline">Milestone</a>
+            <a class="main2_feature_text">6 Players Active</a>
+          </div>
+          <div class="main2_feature">
+            <img class="main2_feature_img" alt="Feature Image" src="media/2.jpg">
+            <a class="main2_feature_headline">Nighmare</a>
+            <a class="main2_feature_text">7 Players Active</a>
+          </div>
+          <div class="main2_feature">
+            <img class="main2_feature_img" alt="Feature Image" src="media/4.jpg">
+            <a class="main2_feature_headline">Ladies</a>
+            <a class="main2_feature_text">11 Players Active</a>
+          </div>
+          <div class="main2_feature">
+            <img class="main2_feature_img" alt="Feature Image" src="media/3.jpg">
+            <a class="main2_feature_headline">Adrenalins</a>
+            <a class="main2_feature_text">6 Players Active</a>
+          </div>
+          <div class="main2_feature">
+            <img class="main2_feature_img" alt="Feature Image" src="media/placeholder.png">
+            <a class="main2_feature_headline">Nothing</a>
+            <a class="main2_feature_text">404</a>
+          </div>
+        </div>
+      </div>
+      <div id="discord"></div>
+      <div class="main4">
+        <a class="headline">Join the Discord</a>
+        <div class="main4_dc_div">
+<iframe src="https://discord.com/widget?id=1120333497572261888&theme=dark" width="350" height="500" allowtransparency="true" frameborder="0" sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts"></iframe>
+          <div class="main4_dc_description_div">
+            <a class="main4_dc_description_title">Let's talk!</a>
+            <a class="main4_dc_description"> ・Meet other players <br> ・Ask questions <br> ・Get notified about updates <br> ・Give feedback  <br><br> &amp; more </a>
+            <a href="https://discord.gg/wETmtFw7" class="main4_dc_button_a">
+              <div class="main4_dc_button">Join</div>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div id="about"></div>
+      <div class="main5">
+        <a class="headline">Who we are</a>
+        <div class="main5_admin_div">
+          <div class="main5_admins_div main5_admins_dev_type2">
+            <img class="main5_admins_img" alt="admin member img" src="media/rullz.png">
+            <div class="main5_admins_description_div">
+              <a class="main5_admins_description_rank main5_admins_description_rank_admin">[Founder]</a>
+              <a class="main5_admins_description_title" href="https://example.com">Rullz</a>
+            </div>
+          </div>
+          <div class="main5_admins_div main5_admins_dev_type1">
+            <img class="main5_admins_img" alt="admin member img" src="media/rallz.jpeg">
+            <div class="main5_admins_description_div">
+              <a class="main5_admins_description_rank main5_admins_description_rank_admin">[Founders]</a>
+              <a class="main5_admins_description_title" href="https://lamzyah.github.io">Rallz</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="join"></div>
+      <div class="main3">
+<div class="main3">
+  <a class="headline">Code Redeem</a>
+  <p>Masukkan Gamertag kamu untuk mendapatkan kode reward (hanya 1x pakai!)</p>
+
+  <input type="text" id="gamertagInput" placeholder="Masukkan Gamertag">
+  <button class="redemcode" onclick="redeemCode()">Redeem</button>
+</div>
+
+<!-- Popup -->
+<div id="popup" class="popup">
+  <div class="popup-content">
+    <span class="close" onclick="closePopup()">&times;</span>
+    <h3>Kode Reward 🎁</h3>
+    <p id="popupCode"></p>
+  </div>
+</div>
+
+<p id="message"></p>
+
+<style>
+  .main3 {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  .redemcode {
+    padding: 10px 20px;
+    margin-top: 10px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  .redemcode:hover {
+    background: #45a049;
+  }
+  #message.error {
+    color: red;
+    margin-top: 10px;
+  }
+  #message.success {
+    color: green;
+    margin-top: 10px;
+  }
+
+  /* Popup Styling */
+  .popup {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    justify-content: center;
+    align-items: center;
+  }
+  .popup-content {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 12px;
+    text-align: center;
+    width: 250px;
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  .popup-content h3 {
+    margin: 0 0 10px;
+    color: #333;
+  }
+  .popup-content p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4caf50;
+  }
+  .close {
+    position: absolute;
+    right: 15px; top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+    color: #aaa;
+  }
+  .close:hover { color: #000; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.8); }
+    to { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<script>
+  const players = [
+    { name: "Gerall6860", lastRedeem: null },
+    { name: "SalsaX", lastRedeem: null },
+  ];
+
+  const codes = [
+    { code: "jmbud1", used: false },
+    { code: "jmbud2", used: false },
+  ];
+
+  function getTodayDate() {
+    return new Date().toISOString().split('T')[0];
+  }
+
+  function loadData() {
+    const savedPlayers = JSON.parse(localStorage.getItem("players"));
+    const savedCodes = JSON.parse(localStorage.getItem("codes"));
+    if (savedPlayers) players.splice(0, players.length, ...savedPlayers);
+    if (savedCodes) codes.splice(0, codes.length, ...savedCodes);
+  }
+
+  function saveData() {
+    localStorage.setItem("players", JSON.stringify(players));
+    localStorage.setItem("codes", JSON.stringify(codes));
+  }
+
+  function redeemCode() {
+    loadData();
+    const inputName = document.getElementById("gamertagInput").value.trim();
+    const message = document.getElementById("message");
+    message.textContent = "";
+    message.className = "";
+
+    if (!inputName) {
+      message.textContent = "❌ Masukkan gamertag terlebih dahulu.";
+      message.className = "error";
+      return;
+    }
+
+    const today = getTodayDate();
+    const player = players.find(p => p.name.toLowerCase() === inputName.toLowerCase());
+
+    if (!player) {
+      message.textContent = "❌ Gamertag tidak ditemukan.";
+      message.className = "error";
+      return;
+    }
+
+    if (player.lastRedeem === today) {
+      message.textContent = "⚠️ Kamu sudah menukarkan kode hari ini. Coba lagi besok!";
+      message.className = "error";
+      return;
+    }
+
+    const availableCodes = codes.filter(c => !c.used);
+    if (availableCodes.length === 0) {
+      message.textContent = "❌ Semua kode sudah digunakan.";
+      message.className = "error";
+      return;
+    }
+
+    const randomCode = availableCodes[Math.floor(Math.random() * availableCodes.length)];
+    randomCode.used = true;
+    player.lastRedeem = today;
+
+    saveData();
+
+    // Tampilkan popup dengan kode
+    document.getElementById("popupCode").textContent = randomCode.code;
+    document.getElementById("popup").style.display = "flex";
+  }
+
+  function closePopup() {
+    document.getElementById("popup").style.display = "none";
+  }
+
+  if (!localStorage.getItem("players") || !localStorage.getItem("codes")) {
+    saveData();
+  }
+</script>
+
+
+
+  <p id="message"></p>
+      </div>
+    </div>
+    <footer class="copyright_div">
+      <a href="https://github.com/FQQD/MCServer-Web-Template" class="copyright"></a>
+    </footer>
+  </body>
+</html>
